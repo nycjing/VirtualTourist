@@ -225,5 +225,10 @@ class PhotosViewController: UIViewController, MKMapViewDelegate, UICollectionVie
             rootView.photosCollectionView.performBatchUpdates({self.blockOperation!.start()}, completion: nil)
         }
     }
-    
+    @IBAction func done() {
+        let destinationController = storyboard!.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+        presentViewController(destinationController , animated: true, completion: nil)
+        
+    }
+
 }

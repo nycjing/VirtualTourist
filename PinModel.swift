@@ -18,7 +18,7 @@ class PinModel: NSManagedObject {
     
     @NSManaged var latitude  : CLLocationDegrees
     @NSManaged var longitude : CLLocationDegrees
-    @NSManaged var photos    : [PhotoModel]
+    @NSManaged var photos    : NSOrderedSet//[PhotoModel]
     
     var coordinate:CLLocationCoordinate2D {
         get {
@@ -46,8 +46,8 @@ class PinModel: NSManagedObject {
             return
         }
         
-        let photos = self.mutableSetValueForKey(Keys.Photos)
-        photos.addObject(photoModel)
+      //  let photos = self.mutableSetValueForKey(Keys.Photos)
+      //  photos.addObject(photoModel)
         photoModel.pin = self
     }
     

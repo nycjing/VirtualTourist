@@ -62,10 +62,30 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
     }
     
     @IBAction func onMapTapped(sender: UIGestureRecognizer) {
+        
+    
         let mapView = rootView.mapView
         let point = sender.locationInView(mapView)
-        let coordinate = mapView.convertPoint(point, toCoordinateFromView: rootView)
+        let coordinate = mapView.convertPoint(point, toCoordinateFromView: rootView.mapView)
         let annotation = AnnotationModel(coordinate: coordinate)
+        //let annotation = MKPointAnnotation()
+        //annotation.coordinate = coordinate
+        
+        
+     //   ----------------
+    //    if gestureRecognizer.state == UIGestureRecognizerState.Ended {
+      //      let touchPoint = gestureRecognizer.locationInView(mapView)
+       //     let newCoordinates = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+      //      let annotation = MKPointAnnotation()
+      //      annotation.coordinate = newCoordinates
+            
+     //       print(newCoordinates)
+       //     mapView.addAnnotation(annotation)
+
+        
+        
+        
+    //    -----------------
         
         switch sender.state {
         case .Began:
@@ -83,6 +103,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
             
         case .Ended:
             //save pin to CoreData
+            let point = sender.locationInView(mapView)
+            let coordinate = mapView.convertPoint(point, toCoordinateFromView: rootView.mapView)
+            let annotation = AnnotationModel(coordinate: coordinate)
+
             mapView.removeAnnotation(draggedPin!)
             mapView.addAnnotation(annotation)
             dispatch_async(dispatch_get_main_queue()) {
