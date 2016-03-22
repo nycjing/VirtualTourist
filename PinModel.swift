@@ -10,6 +10,8 @@ import Foundation
 import CoreData
 import MapKit
 
+@objc(PinModel)
+
 class PinModel: NSManagedObject {
     
     struct Keys {
@@ -53,11 +55,17 @@ class PinModel: NSManagedObject {
     
     func storePhotosFromArray(array: [[String : AnyObject]], completionHandler: (finished: Bool) -> Void) {
         for photoArray in array {
+            dispatch_async(dispatch_get_main_queue()){
             let photoModel = PhotoModel(dictionary: photoArray, context: CoreDataStackManager.sharedInstance().managedObjectContext)
+            
+           
             self.addPhoto(photoModel)
-        }
+                }
+            
         
-        CoreDataStackManager.sharedInstance().saveContext()
+        
+       CoreDataStackManager.sharedInstance().saveContext()
+        }
         
         completionHandler(finished: true)
     }

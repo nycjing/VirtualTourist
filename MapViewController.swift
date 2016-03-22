@@ -112,7 +112,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
             dispatch_async(dispatch_get_main_queue()) {
                 let pin = PinModel(coordinate: coordinate, context: self.sharedContext)
                 annotation.pin = pin
-                CoreDataStackManager.sharedInstance().saveContext()
+            CoreDataStackManager.sharedInstance().saveContext()
+            //     CoreDataStackManager.saveManagedObjectContext(self.sharedContext)
                 
                 //prefetch photos from Flickr
                 FlickrClient.sharedInstance().searchPhotoNearPin(pin) {success, error in

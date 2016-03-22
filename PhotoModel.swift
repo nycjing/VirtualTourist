@@ -9,6 +9,8 @@
 import CoreData
 import UIKit
 
+@objc(PhotoModel)
+
 class PhotoModel: NSManagedObject {
     
     struct Keys {
@@ -27,7 +29,9 @@ class PhotoModel: NSManagedObject {
         }
         
         set {
-            FlickrClient.Caches.imageCache.storeImage(newValue, withIdentifier: identifier)
+            
+            FlickrClient.Caches.imageCache.storeImage(image, withIdentifier: identifier)
+            //FlickrClient.Caches.imageCache.storeImage(newValue, withIdentifier: identifier)
         }
     }
     
@@ -39,6 +43,7 @@ class PhotoModel: NSManagedObject {
         
         // Core Data
         let entity =  NSEntityDescription.entityForName("PhotoModel", inManagedObjectContext: context)!
+        
 
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         

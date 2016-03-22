@@ -75,6 +75,8 @@ class PhotosViewController: UIViewController, MKMapViewDelegate, UICollectionVie
             dispatch_async(dispatch_get_main_queue()) {
                 for photo in photos {
                     CoreDataStackManager.sharedInstance().delete(photo)
+                    CoreDataStackManager.sharedInstance().saveContext()
+                    
                 }
             }
         }
@@ -113,6 +115,7 @@ class PhotosViewController: UIViewController, MKMapViewDelegate, UICollectionVie
         
         let photoModel = fetchedResultsController.objectAtIndexPath(indexPath) as! PhotoModel
         var image = UIImage(named: "photoPlaceholder")
+        
         if photoModel.image != nil {
             image = photoModel.image
         } else {
@@ -123,19 +126,21 @@ class PhotosViewController: UIViewController, MKMapViewDelegate, UICollectionVie
                 
                 if let data = data {
                     image = UIImage(data: data)
-                    
+                    dispatch_async(dispatch_get_main_queue()) {
                     // cash image
                     photoModel.image = image
                     
-                    dispatch_async(dispatch_get_main_queue()) {
+                    
                         cell.fillWithImage(image!)
+                        
                     }
                 }
             }
         }
+    
         
         cell.fillWithImage(image!)
-        
+       // print("test4")
         return cell
     }
     
@@ -146,6 +151,7 @@ class PhotosViewController: UIViewController, MKMapViewDelegate, UICollectionVie
             CoreDataStackManager.sharedInstance().delete(photoModel)
             
             CoreDataStackManager.sharedInstance().saveContext()
+            // CoreDataStackManager.saveManagedObjectContext(self.sharedContext)
         }
     }
     
